@@ -1,35 +1,26 @@
 import { useState } from "react";
 
-export const useForm = (initialValue) => {
-    const [form, setForm] = useState(initialValue);
+export const useForm = (initialValue = {}) => {
+  const [formValue, setValue] = useState(initialValue);
 
-    const handleChange = ({ target }) => {
-        const { name, value } = target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValue({
+      ...formValue,
+      [name]: value,
+    });
+  };
 
-        setForm({
-            ...form,
-            [name]: value,
-        });
-    };
+  const handleReset = () => {
+    setValue(initialValue);
+  };
 
-    const handleReset = () => {
-        setForm(initialValue);
-    };
-
-    return {
-        form,
-        handleChange,
-        handleReset
-    }
-}
-                
-
-
-
-
-
-
-
+  return {
+    formValue,
+    handleChange,
+    handleReset,
+  };
+};
 
 // ### 2. Crear un Custom Hook
 
@@ -41,31 +32,3 @@ export const useForm = (initialValue) => {
 //   - Los valores actuales del formulario.
 //   - Una función `handleChange` para actualizar los valores del formulario.
 //   - Una función `handleReset` para resetear el formulario.
-
-// Ubicación sugerida:
-
-// - `src/hooks/useForm.js`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
